@@ -373,3 +373,24 @@ paths:
                           $ref: '#/components/schemas/JobRequest'
         '400':
           $ref: '#/components/responses/400'  
+    put:
+      summary: Update job requests by email
+      tags:
+        - Job request
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/JobRequest'
+        '400':
+          $ref: '#/components/responses/400'      

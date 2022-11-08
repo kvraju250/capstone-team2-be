@@ -21,6 +21,6 @@ router.get("/:email", jobRequestController.getJobRequestsByEmail)
 // router.get("/:email", validateJwtMiddleware, userController.getUser)
 
 //put route to update a user (requires auth)
-// router.put("/:email", validateJwtMiddleware, userController.updateUser)
+router.put("/:email", jobRequestController.updateJobReqeust)
 
 module.exports = router;
