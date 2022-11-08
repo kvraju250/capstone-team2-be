@@ -5,29 +5,41 @@ const mongoose = require("mongoose");
 //More info: https://mongoosejs.com/docs/schematypes.html
 const jobRequestSchema = new mongoose.Schema({
     // !! Need to change the folloiwng to be related to job requests
-    firstName: {
+    title: {
         type: String, 
         required: true,
         minlength: 2
     },
-    lastName: {
+    description: {
         type: String, 
         required: true,
         minlength: 2
+    },
+    type: {
+        type: String, 
+        required: true,
+        minlength: 2
+    },
+    dateNeeded: {
+        type: Date, 
+        required: false        
+    },
+    status: {
+        type: String, 
+        required: true        
+    },
+    zip: {
+        type: Number, 
+        required: true,
+        minlength: 5
+
     },
     email: { 
         type: String, 
-        required: true, 
-        index: { 
-            unique: true 
-        },
+        required: true,        
         match: [/.+\@.+\..+/, "Invalid E-mail Address"],
-    },
-    password: {
-        type: String, 
-        required: true,
-        select: false
     }
+    
 })
 
 

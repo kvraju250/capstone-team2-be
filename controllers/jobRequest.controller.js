@@ -32,6 +32,29 @@ const jobRequestController = {
 
         }
     },
+
+    //method to job requestsb based on logged-in users using async/await syntax
+    getJobRequestsByEmail: async function(req, res){
+
+        
+        const userEmail = req.params.email;
+
+        let foundJobReqeusts = await JobRequest.find({email: userEmail})
+
+            //if we found the user, return that user otherwise return a 404
+            if(foundJobReqeusts){
+                res.json(foundJobReqeusts)
+            }else{
+                res.status(404).send({
+                    status: res.statusCode,
+                    message: "Job requests Not Found by provided email!"
+                })
+            }        
+    },
+
+
+
+
     //method to create a new user
     createUser: async function(req, res){
 
