@@ -77,38 +77,33 @@ const jobRequestController = {
 
     },
 
-
-
-
-
-
-    //method to update a user
-    updateUser: async function(req, res, next){
+    //method to update a job reqeust
+    updateJobReqeust: async function(req, res, next){
 
         try {
 
-            //get the user email from the request params
-            const email = req.params.email;
+            //get the job request email from the request params
+            const jobreqemail = req.params.email;
 
             //store user data sent through the request
-            const newUserData = req.body;
+            const newJobReqData = req.body;
 
             //try to find our user by the email provided in the request params
-            const user = await User.findOne({email: email})
+            const jobReq = await JobRequest.findOne({email: jobreqemail})
 
             //update the user if we found a match and save or return a 404
-            if(user){
-                Object.assign(user, newUserData)
-                await user.save()
+            if(jobReq){
+                Object.assign(jobReq, newJobReqData)
+                await jobReq.save()
             }else{
-                res.status(404).send({message: "User not found", statusCode: res.statusCode});
+                res.status(404).send({message: "Job Request not found", statusCode: res.statusCode});
             }
 
             //respond with updated user
-            res.json(await User.findById(user._id))
+            res.json(await JobRequest.findById(jobReq._id))
             
         } catch (error) {
-            console.log("failed to update user: " + error)
+            console.log("failed to update job request: " + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
