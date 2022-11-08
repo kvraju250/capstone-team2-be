@@ -52,26 +52,23 @@ const jobRequestController = {
             }        
     },
 
-
-
-
-    //method to create a new user
-    createUser: async function(req, res){
+    //method to create a new job request
+    createJobRequest: async function(req, res){
 
         try {
 
-            //store user data sent through the request
-            const userData = req.body;
+            //store job request data sent through the request
+            const jobRequestData = req.body;
 
-            //pass the userData to the create method of the User model
-            let newUser = await User.create(userData)
+            //pass the jobRequestData to the create method of the JobRequest model
+            let newJobRequest = await JobRequest.create(jobRequestData)
 
-            //return the newly created user
-            res.status(201).json(await User.findById(newUser._id))
+            //return the newly created job request
+            res.status(201).json(await JobRequest.findById(newJobRequest._id))
             
         } catch (error) {
-            //handle errors creating user
-            console.log("failed to create user: " + error)
+            //handle errors creating job request
+            console.log("failed to create job request: " + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
@@ -79,6 +76,12 @@ const jobRequestController = {
         }
 
     },
+
+
+
+
+
+
     //method to update a user
     updateUser: async function(req, res, next){
 
