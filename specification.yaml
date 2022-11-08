@@ -38,6 +38,59 @@ components:
           type: string
         email:
           type: string
+    JobRequest:
+      additionalProperties: false
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 2
+        description:
+          type: string
+          minLength: 2
+        type:
+          type: string
+          minLength: 2
+        dateNeeded:
+          type: date
+        status:
+          type: string
+        zip:
+          type: number
+          minLength: 5
+        email:
+          type: string
+      required:
+        - title
+        - description
+        - type
+        - status
+        - zip
+        - email   
+    JobRequestResponse:
+      additionalProperties: false
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+          minLength: 2
+        description:
+          type: string
+          minLength: 2
+        type:
+          type: string
+          minLength: 2
+        dateNeeded:
+          type: date
+        status:
+          type: string
+        zip:
+          type: number
+          minLength: 5
+        email:
+          type: string
     Login:
       additionalProperties: false
       type: object
@@ -251,3 +304,72 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           $ref: '#/components/responses/404'
+  /api/jobrequest:
+    get:
+      summary: Get a list of job requests
+      tags:
+        - Job request
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/JobRequest'
+        '400':
+          $ref: '#/components/responses/400'    
+    post:
+      summary: Create a new job request
+      operationId: createJobRequest
+      x-controller: users
+      tags:
+        - Job request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/JobRequest'
+        '400':
+          $ref: '#/components/responses/400'
+  /api/jobrequest/{email}:
+    get:
+      summary: Get a list of all job requests by email
+      tags:
+        - Job request
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/JobRequest'
+        '400':
+          $ref: '#/components/responses/400'  
