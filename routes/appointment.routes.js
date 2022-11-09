@@ -21,7 +21,7 @@ router.get("/:id", appointmentController.getAppointmentsById)
 //get route to return a specific users (requires auth)
 // router.get("/:email", validateJwtMiddleware, userController.getUser)
 
-//put route to update a user (requires auth)
-router.put("/:email", appointmentController.updateJobReqeust)
+//put route to update an appointment (requires auth)
+router.put("/:id", appointmentController.updateAppointment)
 
 module.exports = router;
