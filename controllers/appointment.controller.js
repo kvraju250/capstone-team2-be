@@ -1,9 +1,9 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
-const JobRequest = require("../models/jobRequest.model")
+const Appointment = require("../models/appointment.model")
 
 
 //build our controller that will have our CRUD and other methods for our users
-const jobRequestController = {
+const appointmentController = {
 
     //method to get all users using async/await syntax
     getJobRequests: async function(req, res){
@@ -52,23 +52,23 @@ const jobRequestController = {
             }        
     },
 
-    //method to create a new job request
-    createJobRequest: async function(req, res){
+    //method to create a new appointment
+    createAppointment: async function(req, res){
 
         try {
 
-            //store job request data sent through the request
-            const jobRequestData = req.body;
+            //store appointment data sent through the request
+            const appointmentData = req.body;
 
-            //pass the jobRequestData to the create method of the JobRequest model
-            let newJobRequest = await JobRequest.create(jobRequestData)
+            //pass the appointmentData to the create method of the appointment model
+            let newAppointment = await Appointment.create(appointmentData)
 
-            //return the newly created job request
-            res.status(201).json(await JobRequest.findById(newJobRequest._id))
+            //return the newly created appointment
+            res.status(201).json(await Appointment.findById(newAppointment._id))
             
         } catch (error) {
-            //handle errors creating job request
-            console.log("failed to create job request: " + error)
+            //handle errors creating appointment
+            console.log("failed to create appointment: " + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
@@ -149,4 +149,4 @@ const jobRequestController = {
 
 }
 
-module.exports = jobRequestController;
+module.exports = appointmentController;

@@ -21,6 +21,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
 const jobRequestRouter = require('./routes/jobrequest.routes');
+const appointmentRouter = require('./routes/appointment.routes');
 const swaggerDocsRouter = require("./routes/swagger.routes");
 
 
