@@ -8,7 +8,7 @@ const { validateJwtMiddleware } = require("../auth");
 const jobRequestController = require("../controllers/jobRequest.controller")
 
 //post route to create a job request
-router.post("/", jobRequestController.createJobRequest)
+router.post("/", validateJwtMiddleware, jobRequestController.createJobRequest)
 
 //get route to return all job requests (requires auth)
 // keeping "validateJwtMiddlewear" means this route requires authentication
@@ -21,6 +21,6 @@ router.get("/:email", jobRequestController.getJobRequestsByEmail)
 // router.get("/:email", validateJwtMiddleware, userController.getUser)
 
 //put route to update a single job request (requires auth)
-router.put("/:id", jobRequestController.updateJobReqeust)
+router.put("/:id", validateJwtMiddleware, jobRequestController.updateJobReqeust)
 
 module.exports = router;
