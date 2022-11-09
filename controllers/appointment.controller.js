@@ -41,8 +41,10 @@ const appointmentController = {
 
         let foundAppointments = await Appointment.find({_id: appointmentId})
 
+        console.log ("found appot" + foundAppointments)
+
             //if we found the user, return that user otherwise return a 404
-            if(foundAppointments){
+            if(foundAppointments && foundAppointments.length !== 0){
                 res.json(foundAppointments)
             }else{
                 res.status(404).send({
