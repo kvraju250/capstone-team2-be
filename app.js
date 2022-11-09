@@ -40,6 +40,7 @@ app.use('/auth', authRouter);
 //tell our app to use our user routes and prefix them with /api
 app.use('/api/users', usersRouter);
 app.use('/api/jobrequests', jobRequestRouter);
+app.use('/api/appointments', appointmentRouter)
 
 //custom error hadndling
 app.use((err, req, res, next) => {

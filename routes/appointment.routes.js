@@ -13,15 +13,15 @@ router.post("/", appointmentController.createAppointment)
 
 //get route to return all job requests (requires auth)
 // keeping "validateJwtMiddlewear" means this route requires authentication
-router.get("/", jobRequestController.getJobRequests)
+// router.get("/", jobRequestController.getJobRequests)
 
 // this is get route to retuan all job requests by user email
-router.get("/:email", jobRequestController.getJobRequestsByEmail)
+// router.get("/:email", jobRequestController.getJobRequestsByEmail)
 
 //get route to return a specific users (requires auth)
 // router.get("/:email", validateJwtMiddleware, userController.getUser)
 
 //put route to update a user (requires auth)
-router.put("/:email", jobRequestController.updateJobReqeust)
+// router.put("/:email", jobRequestController.updateJobReqeust)
 
 module.exports = router;
