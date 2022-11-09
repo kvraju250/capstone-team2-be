@@ -41,7 +41,6 @@ app.use('/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/jobrequests', jobRequestRouter);
 app.use('/api/appointments', appointmentRouter);
-
 //custom error hadndling
 app.use((err, req, res, next) => {
     // some packages pass an error with a status property instead of statusCode

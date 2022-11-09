@@ -1,13 +1,12 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
-const JobRequest = require("../models/jobRequest.model")
 const Appointment = require("../models/appointment.model")
 
 
 //build our controller that will have our CRUD and other methods for our users
-const jobRequestController = {
+const appointmentController = {
 
-    //method to get all users using async/await syntax
-    getJobRequests: async function(req, res){
+    //method to get all appointments using async/await syntax
+    getAppointments: async function(req, res){
 
         //create base query
         let query = {}
@@ -18,13 +17,13 @@ const jobRequestController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
-            let allJobRequests = await JobRequest.find(query)
+            let allAppointments = await Appointment.find(query)
             
             //return all the users that we found in JSON format
-            res.json(allJobRequests)
+            res.json(allAppointments)
             
         } catch (error) {
-            console.log("error getting all job requests: " + error)
+            console.log("error getting all appointments: " + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not find any users
             res.status(400).json({
                 message: error.message,
@@ -34,42 +33,44 @@ const jobRequestController = {
         }
     },
 
-    //method to job requestsb based on logged-in users using async/await syntax
-    getJobRequestsByEmail: async function(req, res){
+    //method to appointments based on given ID using async/await syntax
+    getAppointmentsById: async function(req, res){
 
         
-        const userEmail = req.params.email;
+        const appointmentId = req.params.id;
 
-        let foundJobReqeusts = await JobRequest.find({email: userEmail})
+        let foundAppointments = await Appointment.find({_id: appointmentId})
+
+        console.log ("found appot" + foundAppointments)
 
             //if we found the user, return that user otherwise return a 404
-            if(foundJobReqeusts){
-                res.json(foundJobReqeusts)
+            if(foundAppointments && foundAppointments.length !== 0){
+                res.json(foundAppointments)
             }else{
                 res.status(404).send({
                     status: res.statusCode,
-                    message: "Job requests Not Found by provided email!"
+                    message: "Appointments Not Found by provided id!"
                 })
             }        
     },
 
-    //method to create a new job request
-    createJobRequest: async function(req, res){
+    //method to create a new appointment
+    createAppointment: async function(req, res){
 
         try {
 
-            //store job request data sent through the request
-            const jobRequestData = req.body;
+            //store appointment data sent through the request
+            const appointmentData = req.body;
 
-            //pass the jobRequestData to the create method of the JobRequest model
-            let newJobRequest = await JobRequest.create(jobRequestData)
+            //pass the appointmentData to the create method of the appointment model
+            let newAppointment = await Appointment.create(appointmentData)
 
-            //return the newly created job request
-            res.status(201).json(await JobRequest.findById(newJobRequest._id))
+            //return the newly created appointment
+            res.status(201).json(await Appointment.findById(newAppointment._id))
             
         } catch (error) {
-            //handle errors creating job request
-            console.log("failed to create job request: " + error)
+            //handle errors creating appointment
+            console.log("failed to create appointment: " + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
@@ -150,4 +151,4 @@ const jobRequestController = {
 
 }
 
-module.exports = jobRequestController;
+module.exports = appointmentController;
