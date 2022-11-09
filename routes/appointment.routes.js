@@ -4,11 +4,12 @@ const router = express.Router();
 //middleware used to require authentication
 const { validateJwtMiddleware } = require("../auth");
 
-//import the user controller to handle our job request routes
+//import the appointment controller to handle our job request routes
 const appointmentController = require("../controllers/appointment.controller")
 
-//post route to create a job request
-router.post("/", appointmentController.createJobRequest)
+//post route to create an appointment
+// will want to add jwt to this route
+router.post("/", appointmentController.createAppointment)
 
 //get route to return all job requests (requires auth)
 // keeping "validateJwtMiddlewear" means this route requires authentication
