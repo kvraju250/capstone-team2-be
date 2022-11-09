@@ -24,4 +24,7 @@ router.get("/:id", appointmentController.getAppointmentsById)
 //put route to update an appointment (requires auth)
 router.put("/:id", appointmentController.updateAppointment)
 
+//delete route to delete an appointment (requires auth)
+router.delete("/:id", appointmentController.deleteAppointment)
+
 module.exports = router;
