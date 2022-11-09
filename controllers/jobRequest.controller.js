@@ -83,13 +83,13 @@ const jobRequestController = {
         try {
 
             //get the job request email from the request params
-            const jobreqemail = req.params.email;
+            const joqReqId = req.params.id;
 
             //store user data sent through the request
             const newJobReqData = req.body;
 
             //try to find our user by the email provided in the request params
-            const jobReq = await JobRequest.findOne({email: jobreqemail})
+            const jobReq = await JobRequest.findOne({_id: joqReqId})
 
             //update the user if we found a match and save or return a 404
             if(jobReq){
