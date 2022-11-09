@@ -5,8 +5,8 @@ const Appointment = require("../models/appointment.model")
 //build our controller that will have our CRUD and other methods for our users
 const appointmentController = {
 
-    //method to get all users using async/await syntax
-    getJobRequests: async function(req, res){
+    //method to get all appointments using async/await syntax
+    getAppointments: async function(req, res){
 
         //create base query
         let query = {}
@@ -17,13 +17,13 @@ const appointmentController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
-            let allJobRequests = await JobRequest.find(query)
+            let allAppointments = await Appointment.find(query)
             
             //return all the users that we found in JSON format
-            res.json(allJobRequests)
+            res.json(allAppointments)
             
         } catch (error) {
-            console.log("error getting all job requests: " + error)
+            console.log("error getting all appointments: " + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not find any users
             res.status(400).json({
                 message: error.message,
@@ -33,21 +33,23 @@ const appointmentController = {
         }
     },
 
-    //method to job requestsb based on logged-in users using async/await syntax
-    getJobRequestsByEmail: async function(req, res){
+    //method to appointments based on given ID using async/await syntax
+    getAppointmentsById: async function(req, res){
 
         
-        const userEmail = req.params.email;
+        const appointmentId = req.params.id;
 
-        let foundJobReqeusts = await JobRequest.find({email: userEmail})
+        let foundAppointments = await Appointment.find({_id: appointmentId})
+
+        console.log ("found appot" + foundAppointments)
 
             //if we found the user, return that user otherwise return a 404
-            if(foundJobReqeusts){
-                res.json(foundJobReqeusts)
+            if(foundAppointments && foundAppointments.length !== 0){
+                res.json(foundAppointments)
             }else{
                 res.status(404).send({
                     status: res.statusCode,
-                    message: "Job requests Not Found by provided email!"
+                    message: "Appointments Not Found by provided id!"
                 })
             }        
     },
