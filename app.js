@@ -21,6 +21,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
 const jobRequestRouter = require('./routes/jobrequest.routes');
+const appointmentRouter = require('./routes/appointment.routes');
 const swaggerDocsRouter = require("./routes/swagger.routes");
 
 
@@ -39,6 +40,7 @@ app.use('/auth', authRouter);
 //tell our app to use our user routes and prefix them with /api
 app.use('/api/users', usersRouter);
 app.use('/api/jobrequests', jobRequestRouter);
+app.use('/api/appointments', appointmentRouter);
 
 //custom error hadndling
 app.use((err, req, res, next) => {

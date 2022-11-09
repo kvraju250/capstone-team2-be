@@ -6,6 +6,7 @@ const { validateJwtMiddleware } = require("../auth");
 
 //import the user controller to handle our job request routes
 const jobRequestController = require("../controllers/jobRequest.controller")
+const appointmentController = require("../controllers/appointment.controller")
 
 //post route to create a job request
 router.post("/", jobRequestController.createJobRequest)
@@ -20,7 +21,7 @@ router.get("/:email", jobRequestController.getJobRequestsByEmail)
 //get route to return a specific users (requires auth)
 // router.get("/:email", validateJwtMiddleware, userController.getUser)
 
-//put route to update a user (requires auth)
-router.put("/:email", jobRequestController.updateJobReqeust)
+//put route to update an appointment (requires auth)
+router.put("/:id", appointmentController.updateAppointment)
 
 module.exports = router;

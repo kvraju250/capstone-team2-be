@@ -1,5 +1,6 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
 const JobRequest = require("../models/jobRequest.model")
+const Appointment = require("../models/appointment.model")
 
 
 //build our controller that will have our CRUD and other methods for our users
@@ -78,32 +79,32 @@ const jobRequestController = {
     },
 
     //method to update a job reqeust
-    updateJobReqeust: async function(req, res, next){
+    updateAppointment: async function(req, res, next){
 
         try {
 
             //get the job request email from the request params
-            const jobreqemail = req.params.email;
+            const apptId = req.params.id;
 
             //store user data sent through the request
-            const newJobReqData = req.body;
+            const newApptData = req.body;
 
             //try to find our user by the email provided in the request params
-            const jobReq = await JobRequest.findOne({email: jobreqemail})
+            const foundAppt = await Appointment.findOne({_id: apptId})
 
             //update the user if we found a match and save or return a 404
-            if(jobReq){
-                Object.assign(jobReq, newJobReqData)
-                await jobReq.save()
+            if(foundAppt){
+                Object.assign(foundAppt, newApptData)
+                await foundAppt.save()
             }else{
-                res.status(404).send({message: "Job Request not found", statusCode: res.statusCode});
+                res.status(404).send({message: "Appointment not found", statusCode: res.statusCode});
             }
 
             //respond with updated user
-            res.json(await JobRequest.findById(jobReq._id))
+            res.json(await Appointment.findById(foundAppt._id))
             
         } catch (error) {
-            console.log("failed to update job request: " + error)
+            console.log("failed to update appointment: " + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
