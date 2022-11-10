@@ -91,6 +91,37 @@ components:
           minLength: 5
         email:
           type: string
+    Appointment:
+      additionalProperties: false
+      type: object
+      properties:
+        jobRequestID:
+          type: string
+          minLength: 2
+        assignedUserEmail:
+          type: string
+          minLength: 2
+        date:
+          type: string
+       
+      required:
+        - jobRequestID
+        - assignedUserEmail
+        - date
+        
+    AppointmnetResponse:
+      additionalProperties: false
+      type: object
+      properties:
+        _id:
+          type: string
+        jobRequestID:
+          type: string
+        assignedUserEmail:
+          type: string
+        date:
+          type: string
+    
     Login:
       additionalProperties: false
       type: object
@@ -304,7 +335,7 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           $ref: '#/components/responses/404'
-  /api/jobrequest:
+  /api/jobrequests:
     get:
       summary: Get a list of job requests
       tags:
@@ -332,6 +363,9 @@ paths:
       x-controller: users
       tags:
         - Job request
+      security:
+        - bearerAuth: []
+      
       requestBody:
         required: true
         content:
@@ -351,11 +385,19 @@ paths:
                         $ref: '#/components/schemas/JobRequest'
         '400':
           $ref: '#/components/responses/400'
-  /api/jobrequest/{email}:
+  /api/jobrequests/{email}:
     get:
       summary: Get a list of all job requests by email
       tags:
-        - Job request
+        - Job request      
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+            description: The email of the job reqeust
+      
       security:
         - bearerAuth: []
       responses:
@@ -373,12 +415,28 @@ paths:
                           $ref: '#/components/schemas/JobRequest'
         '400':
           $ref: '#/components/responses/400'  
+  /api/jobrequests/{id}:        
     put:
-      summary: Update job requests by email
+      summary: Update job requests by id
       tags:
         - Job request
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The id of the job reqeust
       security:
         - bearerAuth: []
+
+      requestBody:
+        description: Updates the job request by email
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'  
       responses:
         '200':
           description: OK
@@ -394,3 +452,157 @@ paths:
                           $ref: '#/components/schemas/JobRequest'
         '400':
           $ref: '#/components/responses/400'      
+
+  /api/appointments:
+    get:
+      summary: Get a list of appointments
+      tags:
+        - Appointments
+      security:
+        - bearerAuth: []     
+        
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/400'
+
+    post:
+      summary: Create a new appointment
+      operationId: createAppointment
+      x-controller: Appointmnet
+      tags:
+        - Appointments
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/AppointmnetResponse'
+        '400':
+          $ref: '#/components/responses/400'     
+
+  /api/appointments/{id}:  
+    get:
+      summary: Get a list of appointments based on appointmnet id
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The id of the appointment
+      
+      security:
+        - bearerAuth: []     
+        
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/400' 
+
+    delete:
+      summary: Delete appointment by id
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The id of the appointment
+      
+      security:
+        - bearerAuth: []     
+        
+      responses:
+        '202':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Appointment'
+        '404':
+          $ref: '#/components/responses/404' 
+        '401':
+          $ref: '#/components/responses/401'   
+
+    put:
+      summary: Update Appointments by id
+      tags:
+        - Appointments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The id of the appointment
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: The appointment updates
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmnetResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'      
+
+  
+         
