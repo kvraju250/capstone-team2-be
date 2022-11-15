@@ -1,5 +1,6 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
 const Appointment = require("../models/appointment.model")
+const JobRequest = require("../models/jobRequest.model")
 
 
 //build our controller that will have our CRUD and other methods for our users
@@ -22,10 +23,72 @@ const appointmentController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
-            let allAppointments = await Appointment.find(query)
             
-            //return all the users that we found in JSON format
+            let allAppointments = await Appointment.find(query).populate("jobRequestData")
             res.json(allAppointments)
+
+            
+            // look up details for each job request?
+            // show id, but pop up job request detail on click?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+            // let allAppointments = await Appointment.aggregate(
+            //     [
+            //         { "$addFields": { "jobReqeust_id": { "$toString": "$_id" }}},
+            //         {
+            //         $lookup: {
+            //             from: "jobrequests",
+            //             localField: "jobRequestID",
+            //             // foreignField: "myId",
+            //             foreignField: "jobReqeust_id",
+            //             as: "appointments_full"
+            //         }
+            //     }]
+            // )
+            // // .find(query)
+
+
+
+            // let allAppointments = await JobRequest.aggregate(
+            //     [
+            //         { "$addFields": { "jobReqeust_id": { "$toString": "$_id" }}},
+            //         {
+            //         $lookup: {
+            //             from: "appointments",
+            //             localField: "jobReqeust_id",
+            //             foreignField: "jobRequestID",
+            //             as: "appointments_full"
+            //         }
+            //     }]
+            // )
+
+            
+            // //return all the users that we found in JSON format
+            // res.json(allAppointments
+            //     .filter( appt => appt.appointments_full.length > 0)
+            //     .filter(appt => appt.appointments_full[0].assignedUserEmail == req.query.assigneduseremail)
+            //     )
             
         } catch (error) {
             console.log("error getting all appointments: " + error)
