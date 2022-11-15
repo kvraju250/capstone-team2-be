@@ -11,6 +11,11 @@ const appointmentController = {
         //create base query
         let query = {}
 
+        if(req.query.assigneduseremail){
+            // console.log('email: ' + req.query.assigneduseremail)
+            query.assignedUserEmail = req.query.assigneduseremail
+        }
+
         //using a try/catch since we are using asyn/await and want to catch any errors if the code in the try block fails
         try {
             

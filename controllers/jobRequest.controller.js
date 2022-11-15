@@ -65,6 +65,7 @@ const jobRequestController = {
 
             //return the newly created job request
             res.status(201).json(await JobRequest.findById(newJobRequest._id))
+            // res.status(201).json(newJobRequest)  // possibly no need to query for the id
             
         } catch (error) {
             //handle errors creating job request
