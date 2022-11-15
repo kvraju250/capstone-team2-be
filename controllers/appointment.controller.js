@@ -59,25 +59,6 @@ const appointmentController = {
             }        
     },
 
-    //method to get appointmetns based on assignedUserEmail
-    getAppointmentsByAssignedUserEmail: async function(req, res){
-
-        
-        const assignedUserEmail = req.params.assigneduseremail;
-
-        let foundAppointments = await Appointment.find({assignedUserEmail: assignedUserEmail})
-
-            //if we found the appointments, return the appointments, otherwise return a 404
-            if(foundAppointments){
-                res.json(foundAppointments)
-            }else{
-                res.status(404).send({
-                    status: res.statusCode,
-                    message: "Appointments no found for provided assigned user email!"
-                })
-            }        
-    },
-
     //method to create a new appointment
     createAppointment: async function(req, res){
 
