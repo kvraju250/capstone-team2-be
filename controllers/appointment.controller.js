@@ -11,6 +11,11 @@ const appointmentController = {
         //create base query
         let query = {}
 
+        if(req.query.assigneduseremail){
+            // console.log('email: ' + req.query.assigneduseremail)
+            query.assignedUserEmail = req.query.assigneduseremail
+        }
+
         //using a try/catch since we are using asyn/await and want to catch any errors if the code in the try block fails
         try {
             
@@ -50,6 +55,25 @@ const appointmentController = {
                 res.status(404).send({
                     status: res.statusCode,
                     message: "Appointments Not Found by provided id!"
+                })
+            }        
+    },
+
+    //method to get appointmetns based on assignedUserEmail
+    getAppointmentsByAssignedUserEmail: async function(req, res){
+
+        
+        const assignedUserEmail = req.params.assigneduseremail;
+
+        let foundAppointments = await Appointment.find({assignedUserEmail: assignedUserEmail})
+
+            //if we found the appointments, return the appointments, otherwise return a 404
+            if(foundAppointments){
+                res.json(foundAppointments)
+            }else{
+                res.status(404).send({
+                    status: res.statusCode,
+                    message: "Appointments no found for provided assigned user email!"
                 })
             }        
     },
