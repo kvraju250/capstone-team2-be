@@ -21,7 +21,7 @@ mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplic
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
-const jobRequestRouter = require('./routes/jobrequest.routes');
+const jobRequestRouter = require('./routes/jobRequest.routes');
 const appointmentRouter = require('./routes/appointment.routes');
 const swaggerDocsRouter = require("./routes/swagger.routes");
 
