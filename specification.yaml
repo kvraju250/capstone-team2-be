@@ -3,6 +3,8 @@ info:
   title: Capstone BE Starter
   version: 1.0.0
 servers:
+  - url: https://volunteerwork.herokuapp.com
+    description: heroku
   - url: http://localhost:5000
     description: localhost
 components:
