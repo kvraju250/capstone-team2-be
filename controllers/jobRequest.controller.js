@@ -11,6 +11,11 @@ const jobRequestController = {
         //create base query
         let query = {}
 
+        if(req.query.id){
+            // console.log('id: ' + req.query.id)
+            query._id = req.query.id
+        }
+
         //using a try/catch since we are using asyn/await and want to catch any errors if the code in the try block fails
         try {
             
@@ -40,6 +45,7 @@ const jobRequestController = {
         const userEmail = req.params.email;
 
         let foundJobReqeusts = await JobRequest.find({email: userEmail})
+        console.log(foundJobReqeusts)
 
             //if we found the user, return that user otherwise return a 404
             if(foundJobReqeusts){

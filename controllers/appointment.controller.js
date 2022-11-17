@@ -24,7 +24,7 @@ const appointmentController = {
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
             
-            let allAppointments = await Appointment.find(query).populate("jobRequestData")
+            let allAppointments = await Appointment.find(query).populate("jobRequestData")  // this is the name of the virtual field we added on the appointment model
             res.json(allAppointments)
 
             

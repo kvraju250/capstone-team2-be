@@ -27,6 +27,12 @@ appointmentSchema.virtual('jobRequestData', {
     justOne: true  // only 1 jobrequest per appointment; don't want the array
 });
 
+// sample calculated field - maniuplate data from current schema
+// appointmentSchema.virtual('calculatedField').get(function() {
+//     return `${this.jobRequestID}: ${this.assignedUserEmail}`
+
+// });
+
 //Generate the model our code with interact with from the above schema
 //Models allow us to interact with the data inside our MongoDB collections
 //More info: https://mongoosejs.com/docs/models.html
